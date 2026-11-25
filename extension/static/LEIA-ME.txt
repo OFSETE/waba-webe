@@ -1,0 +1,34 @@
+WABA WEBE — esta é a pasta que vai para o Chrome (ou Edge)
+==========================================================
+
+COMO INSTALAR (leva 1 minuto)
+
+1. Abra o Chrome e digite na barra de endereço:   chrome://extensions
+   (no Edge:   edge://extensions )
+2. Ligue o "Modo do desenvolvedor" (chave no canto superior direito;
+   no Edge fica na coluna da esquerda).
+3. Clique em "Carregar sem compactação" (no Edge: "Carregar descompactada").
+4. Escolha ESTA pasta (a que tem o arquivo manifest.json dentro) e confirme.
+5. Abra https://web.whatsapp.com (ou recarregue a aba, se já estava aberta).
+6. Clique no ícone "WW" que aparece na barra de ferramentas do próprio WhatsApp
+   (a coluna de ícones à esquerda), ou no ícone WW da barra do navegador.
+   Dica: no navegador, clique no quebra-cabeça e fixe o WW.
+
+IMPORTANTE
+- Não apague nem mova esta pasta depois de instalar: o Chrome usa os
+  arquivos daqui. Se quiser guardar em outro lugar, mova antes de instalar.
+- Quando sair uma versão nova desta pasta, substitua os arquivos e clique
+  no botão de recarregar (seta circular) no cartão da extensão em
+  chrome://extensions. Depois recarregue o WhatsApp Web.
+- O arquivo .zip ao lado desta pasta tem o mesmo conteúdo. O Chrome não instala
+  .zip direto: descompacte-o e escolha a pasta, ou use o .zip para enviar à
+  Chrome Web Store (painel de desenvolvedor) se um dia quiser publicar.
+
+PRIVACIDADE
+Tudo roda no seu navegador. A extensão não envia nada para servidores próprios;
+só fala com o WhatsApp Web e, se você configurar, com os seus webhooks.
+
+AVISO
+Usa recursos não oficiais do WhatsApp Web, que podem parar de funcionar após
+atualizações. Envio em massa para quem não pediu viola os Termos do WhatsApp e
+pode bloquear o seu número.

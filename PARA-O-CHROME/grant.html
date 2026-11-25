@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WABA WEBE</title>
+    <style>
+      body { font: 14px/1.45 system-ui, sans-serif; margin: 0; padding: 22px; color: #11302d; background: #f3faf9; }
+      @media (prefers-color-scheme: dark) { body { color: #dcefed; background: #0f1c1b; } code { background: #1c3330 !important; } }
+      h1 { font-size: 17px; margin: 0 0 10px; }
+      code { display: block; padding: 8px 10px; border-radius: 8px; background: #dff1ee; word-break: break-all; margin: 10px 0 16px; }
+      button { font: inherit; padding: 8px 16px; border-radius: 8px; border: 0; cursor: pointer; margin-right: 8px; }
+      #allow { background: #0f8f86; color: #fff; }
+      #allow:disabled { opacity: .5; cursor: default; }
+      #deny { background: transparent; color: inherit; border: 1px solid #8aa9a5; }
+      #result { margin-top: 14px; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <h1 id="title"></h1>
+    <div id="body"></div>
+    <code id="origin"></code>
+    <button id="allow"></button><button id="deny"></button>
+    <div id="result"></div>
+    <script src="grant.js"></script>
+  </body>
+</html>

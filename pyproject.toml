@@ -1,0 +1,7 @@
+[project]
+name = "waba-webe-preview"
+version = "1.0.0"
+description = "Pré-visualização do painel da extensão WABA WEBE (a extensão fica em extension/)."
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = []

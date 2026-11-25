@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>WABA WEBE — pré-visualização</title>
+    <style>
+      html, body { margin: 0; height: 100%; font: 14px system-ui, sans-serif; background: #dfe7e5; }
+      .fake { display: flex; height: 100%; }
+      .rail { width: 64px; background: #eef3f2; border-right: 1px solid #d6dfdd; padding-top: 10px; }
+      .railbox { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+      .railbox i { width: 24px; height: 24px; border-radius: 7px; background: #c6d4d1; display: block; margin: 8px 0; }
+      .railbox hr { width: 32px; border: 0; border-top: 1px solid #cfdad8; margin: 4px 0; }
+      .side { width: 300px; background: #fff; border-right: 1px solid #d6dfdd; }
+      .side .h { height: 58px; background: #eef3f2; border-bottom: 1px solid #d6dfdd; }
+      .side .r { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-bottom: 1px solid #eef2f1; }
+      .side .a { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #b7d3cf, #8fb8c4); flex-shrink: 0; }
+      .side .l1 { height: 11px; width: 60%; background: #cfdad8; border-radius: 6px; margin-bottom: 8px; }
+      .side .l2 { height: 9px; width: 85%; background: #e3eae9; border-radius: 6px; }
+      .chat { flex: 1; display: flex; flex-direction: column; background: #e9efe9; }
+      .chat .h { height: 58px; display: flex; background: #eef3f2; border-bottom: 1px solid #d6dfdd; }
+      .chat .m { flex: 1; padding: 24px 40px; display: flex; flex-direction: column; gap: 10px; }
+      .b { max-width: 46%; padding: 10px 12px; border-radius: 9px; background: #fff; color: #555; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+      .b.o { align-self: flex-end; background: #d6f0ea; }
+      .chat .f { height: 62px; background: #eef3f2; }
+    </style>
+  </head>
+  <body>
+    <div class="fake">
+      <header class="rail"><div class="railbox"><i></i><i></i><i></i><hr /></div></header>
+      <div class="side">
+        <div class="h"></div>
+        <div class="r"><div class="a"></div><div style="flex:1"><div class="l1"></div><div class="l2"></div></div></div>
+        <div class="r"><div class="a"></div><div style="flex:1"><div class="l1"></div><div class="l2"></div></div></div>
+        <div class="r"><div class="a"></div><div style="flex:1"><div class="l1"></div><div class="l2"></div></div></div>
+        <div class="r"><div class="a"></div><div style="flex:1"><div class="l1"></div><div class="l2"></div></div></div>
+        <div class="r"><div class="a"></div><div style="flex:1"><div class="l1"></div><div class="l2"></div></div></div>
+      </div>
+      <div class="chat" id="main">
+        <header class="h" style="display:flex;align-items:center;justify-content:flex-end;padding-right:12px"><span style="flex:1;padding-left:16px;color:#3b5753;font-weight:600">Ana Ribeiro</span><span></span></header>
+        <div class="m">
+          <div class="b">Olá! Vocês têm horário amanhã?</div>
+          <div class="b o">Temos sim, das 8h às 18h.</div>
+          <div class="b">Perfeito, obrigado!</div>
+        </div>
+        <footer class="f" style="height:auto;min-height:62px;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:62px"></div></footer>
+      </div>
+    </div>
+    <script src="preview.js"></script>
+  </body>
+</html>

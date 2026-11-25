@@ -1,0 +1,386 @@
+{
+    "version":  1,
+    "values":  [
+                   {
+                       "name":  "broadcast interval from (default)",
+                       "group":  "broadcast",
+                       "value":  15,
+                       "unit":  "s",
+                       "source":  "bootstrap.min.js offset 0xefc9 (intervalFrom:15)"
+                   },
+                   {
+                       "name":  "broadcast interval to (default)",
+                       "group":  "broadcast",
+                       "value":  30,
+                       "unit":  "s",
+                       "source":  "bootstrap.min.js offset 0xefc9 (intervalTo:30)"
+                   },
+                   {
+                       "name":  "broadcast delay formula",
+                       "group":  "broadcast",
+                       "value":  "1000*(floor(random*(to-from+1))+from) before every send",
+                       "source":  "bootstrap.min.js offset 0x11f80"
+                   },
+                   {
+                       "name":  "interval validation",
+                       "group":  "broadcast",
+                       "value":  "from\u003e0 \u0026\u0026 to\u003e0 \u0026\u0026 from\u003cto",
+                       "source":  "bootstrap.min.js offset 0xf776"
+                   },
+                   {
+                       "name":  "pause between templates (send all)",
+                       "group":  "broadcast",
+                       "value":  2000,
+                       "unit":  "ms",
+                       "source":  "bootstrap.min.js offset 0x11f80 (ee(2e3))"
+                   },
+                   {
+                       "name":  "working hours default start",
+                       "group":  "broadcast",
+                       "value":  "09:00",
+                       "source":  "bootstrap.min.js offset 0xefc9"
+                   },
+                   {
+                       "name":  "working hours default end",
+                       "group":  "broadcast",
+                       "value":  "17:00",
+                       "source":  "bootstrap.min.js offset 0xefc9"
+                   },
+                   {
+                       "name":  "repeat default count",
+                       "group":  "broadcast",
+                       "value":  3,
+                       "source":  "bootstrap.min.js offset 0xefc9 (repeatInterval:3)"
+                   },
+                   {
+                       "name":  "repeat month length",
+                       "group":  "broadcast",
+                       "value":  30,
+                       "unit":  "days",
+                       "source":  "bootstrap.min.js offset 0x108ab (2592e6)"
+                   },
+                   {
+                       "name":  "scheduled broadcast check (reference)",
+                       "group":  "broadcast",
+                       "value":  30,
+                       "unit":  "s",
+                       "source":  "bootstrap.min.js offset 0x1336e"
+                   },
+                   {
+                       "name":  "typing indicator default",
+                       "group":  "automation",
+                       "value":  3000,
+                       "unit":  "ms",
+                       "source":  "app.min.js offset 0x92a9f (delay||3e3)"
+                   },
+                   {
+                       "name":  "typing duration with delay",
+                       "group":  "automation",
+                       "value":  "equals the reply delay, runs during it",
+                       "source":  "bootstrap.min.js offset 0x1dc08"
+                   },
+                   {
+                       "name":  "archive wait",
+                       "group":  "automation",
+                       "value":  1000,
+                       "unit":  "ms",
+                       "source":  "app.min.js offset 0x90ac4 (o(1e3))"
+                   },
+                   {
+                       "name":  "read/unread wait",
+                       "group":  "automation",
+                       "value":  2000,
+                       "unit":  "ms",
+                       "source":  "bootstrap.min.js offset 0x1dc08 (ee(2e3))"
+                   },
+                   {
+                       "name":  "keyword match",
+                       "group":  "automation",
+                       "value":  "trim+lowercase, contains or exact, * = any",
+                       "source":  "bootstrap.min.js offset 0x1cba3"
+                   },
+                   {
+                       "name":  "quote only first template",
+                       "group":  "automation",
+                       "value":  true,
+                       "source":  "bootstrap.min.js offset 0x1cba3 (quotedMsg only when t===0)"
+                   },
+                   {
+                       "name":  "new automation reply delay",
+                       "group":  "automation",
+                       "value":  0,
+                       "unit":  "s",
+                       "source":  "bootstrap.min.js offset 0x13ef3 (defaults object)"
+                   },
+                   {
+                       "name":  "call types",
+                       "group":  "automation",
+                       "value":  "personal_audio, personal_video, group_audio, group_video",
+                       "source":  "app.min.js call.incoming_call handler near 0x93663"
+                   },
+                   {
+                       "name":  "contactNameLast word",
+                       "group":  "templates",
+                       "value":  "2nd word",
+                       "source":  "app.min.js offset 0x903a3 (split(\u0027 \u0027)[1])"
+                   },
+                   {
+                       "name":  "spintax regex",
+                       "group":  "templates",
+                       "value":  "{([^{}]+?)}",
+                       "source":  "app.min.js offset 0x903a3"
+                   },
+                   {
+                       "name":  "time variable includes seconds",
+                       "group":  "templates",
+                       "value":  true,
+                       "source":  "app.min.js offset 0x903a3 (toLocaleTimeString)"
+                   },
+                   {
+                       "name":  "mention-all tokens",
+                       "group":  "templates",
+                       "value":  "@everyone @all @here @Ø§Ù„Ø¬Ù…ÙŠØ¹ @Ø§Ù„ÙƒÙ„ @todos @tous @×›×•×œ× @herkes",
+                       "source":  "app.min.js offset 0x93663"
+                   },
+                   {
+                       "name":  "deleted list max items",
+                       "group":  "anti-delete",
+                       "value":  500,
+                       "source":  "bootstrap.min.js offset 0x1b392"
+                   },
+                   {
+                       "name":  "deleted list max size",
+                       "group":  "anti-delete",
+                       "value":  52428800,
+                       "unit":  "chars",
+                       "source":  "bootstrap.min.js offset 0x1b392"
+                   },
+                   {
+                       "name":  "anti-delete media per file",
+                       "group":  "anti-delete",
+                       "value":  16384,
+                       "unit":  "KB",
+                       "estimated":  true
+                   },
+                   {
+                       "name":  "invisible presence reassert (reference)",
+                       "group":  "privacy",
+                       "value":  1000,
+                       "unit":  "ms",
+                       "source":  "app.min.js offset 0x91a4d"
+                   },
+                   {
+                       "name":  "invisible presence reassert (ours)",
+                       "group":  "privacy",
+                       "value":  5000,
+                       "unit":  "ms",
+                       "estimated":  true
+                   },
+                   {
+                       "name":  "read receipt patch delay (reference)",
+                       "group":  "privacy",
+                       "value":  100,
+                       "unit":  "ms",
+                       "source":  "app.min.js offset 0x91b3b"
+                   },
+                   {
+                       "name":  "web calling AB keys disabled",
+                       "group":  "privacy",
+                       "value":  6,
+                       "unit":  "keys",
+                       "source":  "app.min.js offset 0x91d71"
+                   },
+                   {
+                       "name":  "webhook default method",
+                       "group":  "webhooks",
+                       "value":  "POST",
+                       "source":  "bootstrap.min.js offset 0x155f0 (method:\u0027post\u0027)"
+                   },
+                   {
+                       "name":  "webhook custom payload uses field names as values",
+                       "group":  "webhooks",
+                       "value":  true,
+                       "source":  "app.min.js offset 0x8e970 (function i)"
+                   },
+                   {
+                       "name":  "webhook retry attempts (ours; reference does not retry)",
+                       "group":  "webhooks",
+                       "value":  6,
+                       "estimated":  true
+                   },
+                   {
+                       "name":  "chat background max size",
+                       "group":  "appearance",
+                       "value":  2097152,
+                       "unit":  "bytes",
+                       "source":  "bootstrap.min.js offset 0x758b"
+                   },
+                   {
+                       "name":  "task priorities",
+                       "group":  "tasks",
+                       "value":  "urgent, high, normal (default), low",
+                       "source":  "bootstrap.min.js (const j={priority:\u0027normal\u0027}, AllTaskPriorities)"
+                   },
+                   {
+                       "name":  "export default period",
+                       "group":  "tools",
+                       "value":  30,
+                       "unit":  "days",
+                       "source":  "bootstrap.min.js offset 0x152f (2592e6)"
+                   },
+                   {
+                       "name":  "new chat shortcut",
+                       "group":  "controls",
+                       "value":  "Ctrl+Alt+S (keyup)",
+                       "source":  "bootstrap.min.js offset 0x17a80"
+                   },
+                   {
+                       "name":  "toggle all privacy shortcut",
+                       "group":  "controls",
+                       "value":  "Alt+P",
+                       "source":  "bootstrap.min.js offset 0x17a80 (KeyP:privateMode)"
+                   },
+                   {
+                       "name":  "toggle all extra buttons shortcut",
+                       "group":  "controls",
+                       "value":  "Alt+B",
+                       "source":  "bootstrap.min.js offset 0x17a80 (KeyB:extraButtons)"
+                   },
+                   {
+                       "name":  "close panel key",
+                       "group":  "controls",
+                       "value":  "Escape",
+                       "source":  "bootstrap.min.js offset 0x17a80"
+                   },
+                   {
+                       "name":  "toggle-all rule",
+                       "group":  "controls",
+                       "value":  "all on -\u003e all off, otherwise all on",
+                       "source":  "bootstrap.min.js e.toggleAll"
+                   },
+                   {
+                       "name":  "options default",
+                       "group":  "settings",
+                       "value":  "privacy, anti-delete and extra buttons all off",
+                       "source":  "bootstrap.min.js offset 0x1200 (settings defaults)"
+                   },
+                   {
+                       "name":  "quick reply bar location",
+                       "group":  "templates",
+                       "value":  "top of #main footer, overflow into \u0027More\u0027 with search",
+                       "source":  "bootstrap.min.js offset 0x9bcf"
+                   },
+                   {
+                       "name":  "quick reply click",
+                       "group":  "templates",
+                       "value":  "sends template to active chat; pill highlighted 2000 ms",
+                       "source":  "bootstrap.min.js offset 0x9bcf (setTimeout 2e3)"
+                   },
+                   {
+                       "name":  "quick replies trigger",
+                       "group":  "controls",
+                       "value":  "/",
+                       "source":  "request spec (C)"
+                   },
+                   {
+                       "name":  "AI reply context messages",
+                       "group":  "ai",
+                       "value":  20,
+                       "source":  "app.min.js newMsg event (msgs slice(-20))"
+                   },
+                   {
+                       "name":  "AI reply replaces templates",
+                       "group":  "ai",
+                       "value":  true,
+                       "source":  "bootstrap.min.js offset 0x37600 (templates hidden when replyWithChatGPT)"
+                   },
+                   {
+                       "name":  "AI provider (ours)",
+                       "group":  "ai",
+                       "value":  "Google Gemini, user API key",
+                       "source":  "person request"
+                   },
+                   {
+                       "name":  "default Gemini model",
+                       "group":  "ai",
+                       "value":  "gemini-2.5-flash",
+                       "estimated":  true
+                   },
+                   {
+                       "name":  "reaction wait",
+                       "group":  "automation",
+                       "value":  5000,
+                       "unit":  "ms",
+                       "source":  "bootstrap.min.js offset 0x1dc08 (ee(5e3))"
+                   },
+                   {
+                       "name":  "save contact name rule",
+                       "group":  "automation",
+                       "value":  "prefix + first word of WhatsApp name; rest = last name",
+                       "source":  "bootstrap.min.js offset 0x1cba3"
+                   },
+                   {
+                       "name":  "WhatsApp library version",
+                       "group":  "core",
+                       "value":  "@wppconnect/wa-js 4.8.2",
+                       "source":  "npm latest; reference bundles a recent wa-js (native-flow code in app.min.js)"
+                   },
+                   {
+                       "name":  "prevent list jump restore delay",
+                       "group":  "customizations",
+                       "value":  100,
+                       "unit":  "ms",
+                       "source":  "bootstrap.min.js offset 0x1b2ef"
+                   },
+                   {
+                       "name":  "task due soon window",
+                       "group":  "tasks",
+                       "value":  24,
+                       "unit":  "h",
+                       "source":  "bootstrap.min.js taskDueStatus (864e5)"
+                   },
+                   {
+                       "name":  "toolbar icon location",
+                       "group":  "ui",
+                       "value":  "parent of first header hr in WhatsApp side bar",
+                       "source":  "bootstrap.min.js offset 0x84f"
+                   },
+                   {
+                       "name":  "local pin rule",
+                       "group":  "ui",
+                       "value":  "chat.pin = chat.t (no 3-chat limit)",
+                       "source":  "bootstrap.min.js offset 0xb900 / app.min.js pinChats"
+                   },
+                   {
+                       "name":  "UI languages",
+                       "group":  "ui",
+                       "value":  "pt, en, es, ar, ru, tr",
+                       "source":  "bootstrap.min.js offset 0x84f"
+                   },
+                   {
+                       "name":  "export all messages limit",
+                       "group":  "tools",
+                       "value":  20000,
+                       "estimated":  true
+                   },
+                   {
+                       "name":  "broadcast risk formula",
+                       "group":  "broadcast",
+                       "value":  "volume + interval + validation score",
+                       "estimated":  true
+                   },
+                   {
+                       "name":  "incoming webhook min interval",
+                       "group":  "webhooks",
+                       "value":  10,
+                       "unit":  "s",
+                       "estimated":  true
+                   },
+                   {
+                       "name":  "customizations shortcut",
+                       "group":  "controls",
+                       "value":  "Alt+C",
+                       "source":  "bootstrap.min.js offset 0x17a80 (KeyC)"
+                   }
+               ]
+}

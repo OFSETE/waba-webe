@@ -1,0 +1,9 @@
+node_modules/
+extension/dist/
+extension/dist-preview/
+extension/release/
+__pycache__/
+*.pyc
+*.zip
+*.log
+.env
