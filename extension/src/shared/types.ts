@@ -43,6 +43,8 @@ export interface HeaderButtons {
   runAutomation: boolean;
   /** Botão "Nova conversa" no topo da conversa */
   newChat: boolean;
+  /** Botão que mostra, dentro da própria conversa, as mensagens que o remetente apagou */
+  restoreDeleted: boolean;
 }
 
 /** "Personalizações" da referência (atalho Alt+C). */

@@ -46,6 +46,8 @@ export function defaultSettings(): Settings {
       downloadStatus: false,
       runAutomation: false,
       newChat: false,
+      // ligado: só aparece quando "Guardar mensagens recebidas" está ativo em Removidas
+      restoreDeleted: true,
     },
     background: null,
     watch: { chatIds: [], online: true, typing: true },

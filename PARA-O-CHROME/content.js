@@ -423,6 +423,13 @@
     hb_downloadStatus: "Botón para descargar estados",
     hb_runAutomation: "Ejecutar una automatización en el chat",
     hb_newChat: "Nuevo chat",
+    hb_restoreDeleted: "Restaurar mensajes eliminados en el chat",
+    hbRestoreDeleted: "Restaurar mensajes eliminados en este chat",
+    restoredInChat: "{n} mensaje(s) eliminado(s) restaurado(s) en este chat.",
+    noDeletedInChat: "No hay mensajes eliminados guardados en este chat.",
+    restoredLabel: "Eliminado por el remitente · restaurado",
+    restoredOffScreen: "Fuera de la pantalla: haz clic para ver",
+    restoreNeedsAntiDelete: 'Activa "Guardar los mensajes recibidos" en Eliminados para usar este botón.',
     kind_call: "Llamada programada",
     kind_list: "Lista de opciones",
     kind_dynamicImage: "Imagen dinámica",
@@ -957,6 +964,13 @@
     hb_downloadStatus: "زر تنزيل الحالة",
     hb_runAutomation: "تشغيل أتمتة على المحادثة",
     hb_newChat: "محادثة جديدة",
+    hb_restoreDeleted: "استعادة الرسائل المحذوفة في المحادثة",
+    hbRestoreDeleted: "استعادة الرسائل المحذوفة في هذه المحادثة",
+    restoredInChat: "تمت استعادة {n} رسالة محذوفة في هذه المحادثة.",
+    noDeletedInChat: "لا توجد رسائل محذوفة محفوظة لهذه المحادثة.",
+    restoredLabel: "حذفها المرسل · تمت استعادتها",
+    restoredOffScreen: "خارج الشاشة: انقر للعرض",
+    restoreNeedsAntiDelete: 'فعّل "الاحتفاظ بالرسائل المستلمة" في المحذوفة لاستخدام هذا الزر.',
     kind_call: "مكالمة مجدولة",
     kind_list: "قائمة خيارات",
     kind_dynamicImage: "صورة ديناميكية",
@@ -1491,6 +1505,13 @@
     hb_downloadStatus: "Кнопка скачивания статуса",
     hb_runAutomation: "Запустить автоматизацию в чате",
     hb_newChat: "Новый чат",
+    hb_restoreDeleted: "Восстанавливать удалённые сообщения в чате",
+    hbRestoreDeleted: "Восстановить удалённые сообщения в этом чате",
+    restoredInChat: "Восстановлено удалённых сообщений в этом чате: {n}.",
+    noDeletedInChat: "Для этого чата нет сохранённых удалённых сообщений.",
+    restoredLabel: "Удалено отправителем · восстановлено",
+    restoredOffScreen: "Вне экрана: нажмите, чтобы открыть",
+    restoreNeedsAntiDelete: "Включите «Сохранять полученные сообщения» в разделе «Удалённые», чтобы пользоваться этой кнопкой.",
     kind_call: "Запланированный звонок",
     kind_list: "Список вариантов",
     kind_dynamicImage: "Динамическое изображение",
@@ -2025,6 +2046,13 @@
     hb_downloadStatus: "Durum indirme düğmesi",
     hb_runAutomation: "Sohbette bir otomasyon çalıştır",
     hb_newChat: "Yeni sohbet",
+    hb_restoreDeleted: "Sohbette silinen mesajları geri yükle",
+    hbRestoreDeleted: "Bu sohbette silinen mesajları geri yükle",
+    restoredInChat: "Bu sohbette {n} silinen mesaj geri yüklendi.",
+    noDeletedInChat: "Bu sohbet için saklanan silinmiş mesaj yok.",
+    restoredLabel: "Gönderen sildi · geri yüklendi",
+    restoredOffScreen: "Ekran dışında: görmek için tıklayın",
+    restoreNeedsAntiDelete: 'Bu düğmeyi kullanmak için Silinenler bölümünde "Alınan mesajları sakla"yı açın.',
     kind_call: "Planlı arama",
     kind_list: "Seçenek listesi",
     kind_dynamicImage: "Dinamik resim",
@@ -2568,6 +2596,13 @@
     hb_downloadStatus: "Botão de baixar status",
     hb_runAutomation: "Executar automação na conversa",
     hb_newChat: "Nova conversa",
+    hb_restoreDeleted: "Restaurar mensagens apagadas na conversa",
+    hbRestoreDeleted: "Restaurar mensagens apagadas nesta conversa",
+    restoredInChat: "{n} mensagem(ns) apagada(s) restaurada(s) nesta conversa.",
+    noDeletedInChat: "Nenhuma mensagem apagada guardada nesta conversa.",
+    restoredLabel: "Apagada pelo remetente · restaurada",
+    restoredOffScreen: "Fora da tela: clique para ver",
+    restoreNeedsAntiDelete: 'Ligue "Guardar mensagens recebidas" em Removidas para usar este botão.',
     kind_call: "Chamada agendada",
     kind_list: "Lista de opções",
     kind_dynamicImage: "Imagem dinâmica",
@@ -3106,6 +3141,13 @@
     hb_downloadStatus: "Download status button",
     hb_runAutomation: "Run an automation on the chat",
     hb_newChat: "New chat",
+    hb_restoreDeleted: "Restore deleted messages in the chat",
+    hbRestoreDeleted: "Restore deleted messages in this chat",
+    restoredInChat: "{n} deleted message(s) restored in this chat.",
+    noDeletedInChat: "No deleted messages kept for this chat.",
+    restoredLabel: "Deleted by the sender · restored",
+    restoredOffScreen: "Off screen: click to view",
+    restoreNeedsAntiDelete: 'Turn on "Keep received messages" under Deleted to use this button.',
     kind_call: "Scheduled call",
     kind_list: "Options list",
     kind_dynamicImage: "Dynamic image",
@@ -5214,7 +5256,9 @@ ${text}`;
         transcribe: false,
         downloadStatus: false,
         runAutomation: false,
-        newChat: false
+        newChat: false,
+        // ligado: só aparece quando "Guardar mensagens recebidas" está ativo em Removidas
+        restoreDeleted: true
       },
       background: null,
       watch: { chatIds: [], online: true, typing: true },
@@ -41743,6 +41787,75 @@ ${text}`;
   }
 
   // src/content/dom/header.ts
+  var RESTORED_CLASS = "wabawebe-restored";
+  function fmtTime(sec) {
+    return new Date(sec * 1e3).toLocaleString(void 0, { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+  }
+  function rowOf(id) {
+    return document.querySelector(`#main [data-id="${CSS.escape(id)}"]`);
+  }
+  function injectRestored(m) {
+    const row = rowOf(m.id);
+    if (!row) return false;
+    if (row.querySelector(`.${RESTORED_CLASS}`)) return true;
+    const bubble = row.querySelector('.message-in, .message-out, [class*="message-"]') ?? row;
+    const box = document.createElement("div");
+    box.className = RESTORED_CLASS;
+    box.style.cssText = "margin:6px 8px 8px;padding:6px 10px;border-left:3px solid #00a884;border-radius:6px;background:rgba(0,168,132,.08);font-size:13.5px;line-height:1.4;white-space:pre-wrap;word-break:break-word;max-width:320px";
+    const label = document.createElement("div");
+    label.style.cssText = "font-size:11px;font-weight:600;color:#00a884;margin-bottom:3px";
+    label.textContent = `↺ ${t("restoredLabel")}`;
+    box.append(label);
+    const text = m.body || m.caption;
+    if (text) {
+      const p = document.createElement("div");
+      p.textContent = text;
+      box.append(p);
+    }
+    const url = m.mediaDataUrl;
+    const mime = m.mime ?? "";
+    const mediaStyle = "display:block;max-width:100%;max-height:260px;border-radius:6px;margin-top:4px";
+    if (url && (mime.startsWith("image/") || m.type === "image" || m.type === "sticker")) {
+      const img = document.createElement("img");
+      img.src = url;
+      img.style.cssText = mediaStyle;
+      box.append(img);
+    } else if (url && (mime.startsWith("video/") || m.type === "video")) {
+      const v = document.createElement("video");
+      v.src = url;
+      v.controls = true;
+      v.style.cssText = mediaStyle;
+      box.append(v);
+    } else if (url && (mime.startsWith("audio/") || m.type === "audio" || m.type === "ptt")) {
+      const a = document.createElement("audio");
+      a.src = url;
+      a.controls = true;
+      a.style.cssText = "display:block;margin-top:4px;max-width:100%";
+      box.append(a);
+    } else if (url) {
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = m.filename || `${m.type}-${m.id.slice(-8)}`;
+      a.textContent = `⬇ ${m.filename || t("download")}`;
+      a.style.cssText = "display:inline-block;margin-top:4px;color:#00a884;font-weight:600";
+      box.append(a);
+    } else if (m.lat !== void 0 && m.lng !== void 0) {
+      const a = document.createElement("a");
+      a.href = `https://maps.google.com/?q=${m.lat},${m.lng}`;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = `📍 ${m.lat}, ${m.lng}`;
+      a.style.cssText = "color:#00a884";
+      box.append(a);
+    } else if (!text) {
+      const p = document.createElement("div");
+      p.style.opacity = ".75";
+      p.textContent = `[${m.type}] ${t("mediaNotKept")}`;
+      box.append(p);
+    }
+    bubble.appendChild(box);
+    return true;
+  }
   var HeaderButtons = class {
     constructor(app) {
       this.app = app;
@@ -41752,14 +41865,18 @@ ${text}`;
     bar = null;
     observer = null;
     timer = null;
+    /** Conversas em que o usuário pediu para restaurar: continua mostrando ao rolar e quando chegam novas apagadas. */
+    restoredChats = /* @__PURE__ */ new Set();
+    renderedFor = null;
     start() {
       this.observer = new MutationObserver(() => this.schedule());
       const main2 = document.getElementById("app") ?? document.body;
       this.observer.observe(main2, { childList: true, subtree: true });
       this.app.store.subscribe((f) => {
-        if (f === "settings" || f === "*") {
+        if (f === "settings" || f === "deleted" || f === "*") {
           this.ensure();
           this.render();
+          this.reapply();
         }
       });
       this.schedule();
@@ -41769,11 +41886,50 @@ ${text}`;
       this.timer = setTimeout(() => {
         this.timer = null;
         this.ensure();
+        this.reapply();
       }, 400);
+    }
+    restoreOn() {
+      return this.app.store.settings.headerButtons.restoreDeleted && this.app.store.settings.antiDelete.enabled;
+    }
+    deletedHere() {
+      const id = this.chatId();
+      return id ? this.app.store.data.deleted.filter((d) => d.chatId === id) : [];
+    }
+    /** O WhatsApp recria as linhas ao rolar; recoloca o conteúdo restaurado nas que voltaram. */
+    reapply() {
+      const id = this.chatId();
+      if (!id || !this.restoredChats.has(id) || !this.restoreOn()) return;
+      for (const m of this.deletedHere()) injectRestored(m);
+    }
+    restoreHere(e) {
+      const id = this.chatId();
+      if (!id) return;
+      if (!this.app.store.settings.antiDelete.enabled) {
+        toast(t("restoreNeedsAntiDelete"));
+        return;
+      }
+      const list = this.deletedHere();
+      if (!list.length) {
+        toast(t("noDeletedInChat"));
+        return;
+      }
+      this.restoredChats.add(id);
+      const offScreen = list.filter((m) => !injectRestored(m));
+      toast(t("restoredInChat", { n: list.length }), "ok");
+      if (offScreen.length)
+        popupMenu(e.clientX - 200, e.clientY + 12, offScreen.map((m) => ({
+          label: `${m.senderName || m.chatName} · ${fmtTime(m.t)}`,
+          sub: `${(m.body || m.caption || `[${m.type}]`).slice(0, 60)} — ${t("restoredOffScreen")}`,
+          onClick: () => {
+            this.app.ui.openPanel("deleted");
+            viewDeleted(this.app, m);
+          }
+        })));
     }
     anyEnabled() {
       const hb = this.app.store.settings.headerButtons;
-      return hb.readUnread || hb.pin || hb.quickLabel || hb.saveContact || hb.sendTemplate || hb.addTask || hb.like || hb.chatInfo || hb.aiSuggest || hb.newChat || hb.runAutomation;
+      return hb.readUnread || hb.pin || hb.quickLabel || hb.saveContact || hb.sendTemplate || hb.addTask || hb.like || hb.chatInfo || hb.aiSuggest || hb.newChat || hb.runAutomation || this.restoreOn();
     }
     ensure() {
       if (!this.anyEnabled()) {
@@ -41784,7 +41940,10 @@ ${text}`;
       }
       const header = document.querySelector("#main header");
       if (!header) return;
-      if (this.host && header.contains(this.host)) return;
+      if (this.host && header.contains(this.host)) {
+        if (this.renderedFor !== this.chatId()) this.render();
+        return;
+      }
       this.host = h("div", { id: "wabawebe-header", style: "display:flex;align-items:center;margin:0 4px;flex-shrink:0" });
       const shadow = this.host.attachShadow({ mode: "open" });
       shadow.append(h("style", null, PANEL_CSS));
@@ -41801,11 +41960,23 @@ ${text}`;
     render() {
       if (!this.bar) return;
       clear(this.bar);
+      this.renderedFor = this.chatId();
       this.bar.classList.toggle("dark", isWhatsAppDark());
       const hb = this.app.store.settings.headerButtons;
       const add = (on, ic, title, fn) => {
         if (on) this.bar.append(h("button", { title, onclick: fn }, icon(ic, 19)));
       };
+      if (this.restoreOn()) {
+        const n = this.deletedHere().length;
+        this.bar.append(
+          h(
+            "button",
+            { title: n ? `${t("hbRestoreDeleted")} (${n})` : t("hbRestoreDeleted"), style: "position:relative", onclick: (e) => this.restoreHere(e) },
+            icon("restore", 19),
+            n ? h("span", { style: "position:absolute;top:1px;right:0;min-width:15px;height:15px;padding:0 3px;box-sizing:border-box;border-radius:99px;background:#00a884;color:#fff;font:700 10px/15px system-ui;text-align:center" }, n > 99 ? "99+" : String(n)) : null
+          )
+        );
+      }
       const call = (method, params) => this.app.bridge.call(method, params).then(() => toast(t("done"), "ok")).catch((e) => toast(`${t("error")}: ${e instanceof Error ? e.message : e}`, "error"));
       add(hb.readUnread, "readToggle", `${t("hbMarkRead")} / ${t("hbMarkUnread")}`, () => {
         const id = this.chatId();

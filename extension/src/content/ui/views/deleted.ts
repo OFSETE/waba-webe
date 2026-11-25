@@ -24,7 +24,7 @@ async function restore(app: App, m: DeletedMsg): Promise<void> {
   }
 }
 
-function viewDeleted(app: App, m: DeletedMsg): void {
+export function viewDeleted(app: App, m: DeletedMsg): void {
   const media = mediaElement(m);
   modal(`${m.senderName || m.chatName}`, [
     h('div', { class: 'hint' }, `${m.chatName} • ${fmtDateTime(m.t * 1000, locale())} • ${t('deletedAt')} ${fmtDateTime(m.deletedAt, locale())}`),

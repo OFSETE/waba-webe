@@ -12,13 +12,93 @@ import { sendTemplateToActive } from '../ui/views/templates';
 import { templateSummary, resolveTemplate } from '../resolve';
 import { COUNTRY_DIAL, dialCodeOf, flagOf } from '../../shared/numbers';
 import { countryName } from '../ui/pickers';
+import { viewDeleted } from '../ui/views/deleted';
+import type { DeletedMsg } from '../../shared/types';
 import type { App } from '../app';
+
+const RESTORED_CLASS = 'wabawebe-restored';
+
+function fmtTime(sec: number): string {
+  return new Date(sec * 1000).toLocaleString(undefined, { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+}
+
+/** Linha da mensagem na conversa aberta (a mensagem apagada continua com o mesmo data-id). */
+function rowOf(id: string): HTMLElement | null {
+  return document.querySelector<HTMLElement>(`#main [data-id="${CSS.escape(id)}"]`);
+}
+
+/** Mostra o conteúdo guardado dentro do balão da mensagem apagada. Devolve false se ela não está na tela. */
+function injectRestored(m: DeletedMsg): boolean {
+  const row = rowOf(m.id);
+  if (!row) return false;
+  if (row.querySelector(`.${RESTORED_CLASS}`)) return true;
+  const bubble = row.querySelector('.message-in, .message-out, [class*="message-"]') ?? row;
+  const box = document.createElement('div');
+  box.className = RESTORED_CLASS;
+  box.style.cssText = 'margin:6px 8px 8px;padding:6px 10px;border-left:3px solid #00a884;border-radius:6px;background:rgba(0,168,132,.08);font-size:13.5px;line-height:1.4;white-space:pre-wrap;word-break:break-word;max-width:320px';
+  const label = document.createElement('div');
+  label.style.cssText = 'font-size:11px;font-weight:600;color:#00a884;margin-bottom:3px';
+  label.textContent = `↺ ${t('restoredLabel')}`;
+  box.append(label);
+  const text = m.body || m.caption;
+  if (text) {
+    const p = document.createElement('div');
+    p.textContent = text;
+    box.append(p);
+  }
+  const url = m.mediaDataUrl;
+  const mime = m.mime ?? '';
+  const mediaStyle = 'display:block;max-width:100%;max-height:260px;border-radius:6px;margin-top:4px';
+  if (url && (mime.startsWith('image/') || m.type === 'image' || m.type === 'sticker')) {
+    const img = document.createElement('img');
+    img.src = url;
+    img.style.cssText = mediaStyle;
+    box.append(img);
+  } else if (url && (mime.startsWith('video/') || m.type === 'video')) {
+    const v = document.createElement('video');
+    v.src = url;
+    v.controls = true;
+    v.style.cssText = mediaStyle;
+    box.append(v);
+  } else if (url && (mime.startsWith('audio/') || m.type === 'audio' || m.type === 'ptt')) {
+    const a = document.createElement('audio');
+    a.src = url;
+    a.controls = true;
+    a.style.cssText = 'display:block;margin-top:4px;max-width:100%';
+    box.append(a);
+  } else if (url) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = m.filename || `${m.type}-${m.id.slice(-8)}`;
+    a.textContent = `⬇ ${m.filename || t('download')}`;
+    a.style.cssText = 'display:inline-block;margin-top:4px;color:#00a884;font-weight:600';
+    box.append(a);
+  } else if (m.lat !== undefined && m.lng !== undefined) {
+    const a = document.createElement('a');
+    a.href = `https://maps.google.com/?q=${m.lat},${m.lng}`;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = `📍 ${m.lat}, ${m.lng}`;
+    a.style.cssText = 'color:#00a884';
+    box.append(a);
+  } else if (!text) {
+    const p = document.createElement('div');
+    p.style.opacity = '.75';
+    p.textContent = `[${m.type}] ${t('mediaNotKept')}`;
+    box.append(p);
+  }
+  bubble.appendChild(box);
+  return true;
+}
 
 export class HeaderButtons {
   private host: HTMLElement | null = null;
   private bar: HTMLElement | null = null;
   private observer: MutationObserver | null = null;
   private timer: ReturnType<typeof setTimeout> | null = null;
+  /** Conversas em que o usuário pediu para restaurar: continua mostrando ao rolar e quando chegam novas apagadas. */
+  private restoredChats = new Set<string>();
+  private renderedFor: string | null = null;
 
   constructor(private app: App) {}
 
@@ -27,9 +107,10 @@ export class HeaderButtons {
     const main = document.getElementById('app') ?? document.body;
     this.observer.observe(main, { childList: true, subtree: true });
     this.app.store.subscribe((f) => {
-      if (f === 'settings' || f === '*') {
+      if (f === 'settings' || f === 'deleted' || f === '*') {
         this.ensure();
         this.render();
+        this.reapply();
       }
     });
     this.schedule();
@@ -40,12 +121,55 @@ export class HeaderButtons {
     this.timer = setTimeout(() => {
       this.timer = null;
       this.ensure();
+      this.reapply();
     }, 400);
+  }
+
+  private restoreOn(): boolean {
+    return this.app.store.settings.headerButtons.restoreDeleted && this.app.store.settings.antiDelete.enabled;
+  }
+
+  private deletedHere(): DeletedMsg[] {
+    const id = this.chatId();
+    return id ? this.app.store.data.deleted.filter((d) => d.chatId === id) : [];
+  }
+
+  /** O WhatsApp recria as linhas ao rolar; recoloca o conteúdo restaurado nas que voltaram. */
+  private reapply(): void {
+    const id = this.chatId();
+    if (!id || !this.restoredChats.has(id) || !this.restoreOn()) return;
+    for (const m of this.deletedHere()) injectRestored(m);
+  }
+
+  private restoreHere(e: MouseEvent): void {
+    const id = this.chatId();
+    if (!id) return;
+    if (!this.app.store.settings.antiDelete.enabled) {
+      toast(t('restoreNeedsAntiDelete'));
+      return;
+    }
+    const list = this.deletedHere();
+    if (!list.length) {
+      toast(t('noDeletedInChat'));
+      return;
+    }
+    this.restoredChats.add(id);
+    const offScreen = list.filter((m) => !injectRestored(m));
+    toast(t('restoredInChat', { n: list.length }), 'ok');
+    if (offScreen.length)
+      popupMenu(e.clientX - 200, e.clientY + 12, offScreen.map((m) => ({
+        label: `${m.senderName || m.chatName} · ${fmtTime(m.t)}`,
+        sub: `${(m.body || m.caption || `[${m.type}]`).slice(0, 60)} — ${t('restoredOffScreen')}`,
+        onClick: () => {
+          this.app.ui.openPanel('deleted');
+          viewDeleted(this.app, m);
+        },
+      })));
   }
 
   private anyEnabled(): boolean {
     const hb = this.app.store.settings.headerButtons;
-    return hb.readUnread || hb.pin || hb.quickLabel || hb.saveContact || hb.sendTemplate || hb.addTask || hb.like || hb.chatInfo || hb.aiSuggest || hb.newChat || hb.runAutomation;
+    return hb.readUnread || hb.pin || hb.quickLabel || hb.saveContact || hb.sendTemplate || hb.addTask || hb.like || hb.chatInfo || hb.aiSuggest || hb.newChat || hb.runAutomation || this.restoreOn();
   }
 
   private ensure(): void {
@@ -58,7 +182,11 @@ export class HeaderButtons {
     }
     const header = document.querySelector('#main header');
     if (!header) return;
-    if (this.host && header.contains(this.host)) return;
+    if (this.host && header.contains(this.host)) {
+      // trocou de conversa sem o WhatsApp recriar o cabeçalho: atualiza o contador
+      if (this.renderedFor !== this.chatId()) this.render();
+      return;
+    }
     this.host = h('div', { id: 'wabawebe-header', style: 'display:flex;align-items:center;margin:0 4px;flex-shrink:0' });
     const shadow = this.host.attachShadow({ mode: 'open' });
     shadow.append(h('style', null, PANEL_CSS));
@@ -78,11 +206,21 @@ export class HeaderButtons {
   private render(): void {
     if (!this.bar) return;
     clear(this.bar);
+    this.renderedFor = this.chatId();
     this.bar.classList.toggle('dark', isWhatsAppDark());
     const hb = this.app.store.settings.headerButtons;
     const add = (on: boolean, ic: IconName, title: string, fn: (e: MouseEvent) => void) => {
       if (on) this.bar!.append(h('button', { title, onclick: fn }, icon(ic, 19)));
     };
+    if (this.restoreOn()) {
+      const n = this.deletedHere().length;
+      this.bar.append(
+        h('button', { title: n ? `${t('hbRestoreDeleted')} (${n})` : t('hbRestoreDeleted'), style: 'position:relative', onclick: (e: MouseEvent) => this.restoreHere(e) },
+          icon('restore', 19),
+          n ? h('span', { style: 'position:absolute;top:1px;right:0;min-width:15px;height:15px;padding:0 3px;box-sizing:border-box;border-radius:99px;background:#00a884;color:#fff;font:700 10px/15px system-ui;text-align:center' }, n > 99 ? '99+' : String(n)) : null,
+        ),
+      );
+    }
     const call = (method: string, params: unknown) =>
       this.app.bridge.call(method, params).then(() => toast(t('done'), 'ok')).catch((e) => toast(`${t('error')}: ${e instanceof Error ? e.message : e}`, 'error'));
     add(hb.readUnread, 'readToggle', `${t('hbMarkRead')} / ${t('hbMarkUnread')}`, () => {
